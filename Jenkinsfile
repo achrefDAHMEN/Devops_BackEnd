@@ -49,7 +49,7 @@ pipeline {
          
             steps {
                     script {
-                        withSonarQubeEnv('test') 
+                        withSonarQubeEnv('sonarqube') 
                         {
 
                             def sonarUsername = "admin"
