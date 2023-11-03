@@ -31,7 +31,6 @@ public class ProductServiceImpl implements IProductService {
     public Product retrieveProduct(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new NullPointerException("Product not found"));
     }
-
     @Override
     public List<Product> retreiveAllProduct() {
         return productRepository.findAll();

@@ -43,19 +43,23 @@ class StockServiceImplTest {
         assertEquals(this.stockService.retrieveAllStock().size(),2);
         assertEquals(this.stockService.retrieveStock(2L).getTitle(),"Title");
     }
-
     @Test
     @DatabaseSetup("/data-set/stock-data.xml")
     void retrieveStock() {
         final Stock stock = this.stockService.retrieveStock(1L);
         assertEquals("stock 1", stock.getTitle());
     }
-
     @Test
     @DatabaseSetup("/data-set/stock-data.xml")
     void retrieveAllStock() {
         final List<Stock> allStocks = this.stockService.retrieveAllStock();
         assertEquals(allStocks.size(), 1);
-
+    }
+    @Test
+    @DatabaseSetup("/data-set/stock-data.xml")
+    void retrieveStock_nullId() {
+        Exception exception = assertThrows(NullPointerException.class, () -> {
+            final Stock stock = this.stockService.retrieveStock(100L);
+        });
     }
 }

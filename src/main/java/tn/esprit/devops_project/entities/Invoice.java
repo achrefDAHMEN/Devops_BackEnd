@@ -27,7 +27,7 @@ public class Invoice implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long idInvoice;
-	float amountDiscount;
+	float amountDiscount ;
 	float amountInvoice;
 	@Temporal(TemporalType.DATE)
 	Date dateCreationInvoice;

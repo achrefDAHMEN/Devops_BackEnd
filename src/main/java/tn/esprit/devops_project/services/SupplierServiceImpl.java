@@ -14,20 +14,15 @@ import java.util.List;
 @Slf4j
 @AllArgsConstructor
 public class SupplierServiceImpl implements ISupplierService {
-
 	SupplierRepository supplierRepository;
-
 	@Override
 	public List<Supplier> retrieveAllSuppliers() {
 		return supplierRepository.findAll();
 	}
-
-
 	@Override
 	public Supplier addSupplier(Supplier supplier) {
 		return supplierRepository.save(supplier);
 	}
-
 	@Override
 	public Supplier updateSupplier(Supplier supplier) {
 		return  supplierRepository.save(supplier);
