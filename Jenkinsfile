@@ -5,14 +5,12 @@ pipeline {
 
         stage('git') {
             steps {
-                echo 'Hello World'
+                script{
+                     checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/achrefDAHMEN/Devops_BackEnd']]])
+                }
             }
         }
-        stage('Checkout Backend code') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/achrefDAHMEN/Devops_BackEnd']]])
-            }
-        }
+    
         
 	    stage('Build') {
             steps {
@@ -25,6 +23,56 @@ pipeline {
                 junit 'target/surefire-reports/*.xml'
             }
         }
+
+
+        stage("Create SonarQube Project") {
+            steps {
+                script {
+                    def sonarServerUrl = "http://192.168.159.128:9000" 
+
+                    def projectName = "sonar1" 
+                    def projectKey = "sonar1" 
+                    sh """
+                        curl -X POST "${sonarServerUrl}/api/projects/create?name=${projectName}&project=${projectKey}"
+                    """
+                
+
+                    }
+                }
+        }
+     
+        
+        
+        
+        
+        stage("Run SonarQube Analysis") {
+         
+            steps {
+                    script {
+                        withSonarQubeEnv('test') 
+                        {
+
+                            def sonarUsername = "admin"
+                            def sonarPassword = "admin123"
+
+                            withCredentials([usernamePassword(credentialsId: 'sonarqube', usernameVariable: 'sonarUsername', passwordVariable: 'sonarPassword')]) {
+                                
+                                sh """
+                                set +x
+                            mvn sonar:sonar  -Dsonar.projectKey=sonar1
+                                set -x
+                                
+                                """
+                            }
+                        
+                            echo 'Static Analysis Completed' 
+                        
+                        }
+                    
+                    }
+            
+                }
+            }
 
         
     }
