@@ -102,7 +102,7 @@ pipeline {
                         
 
                         
-                        sh " docker login -u ${dockerUsername} -p-stdin ${dockerPassword} " 
+                        sh " docker login -u ${dockerUsername} -p ${dockerPassword} " 
                         
                     
                         
