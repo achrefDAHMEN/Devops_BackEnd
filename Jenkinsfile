@@ -59,7 +59,7 @@ pipeline {
                                 
                                 sh """
                                 set +x
-                            mvn sonar:sonar  -Dsonar.projectKey=sonar1
+                            mvn sonar:sonar  -Dsonar.projectKey=sonar1 -Dsonar.login=admin -Dsonar.password=admin123
                                 set -x
                                 
                                 """
