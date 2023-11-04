@@ -38,7 +38,7 @@ pipeline {
                     nexusUrl: '192.168.159.128:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
-                    repository: 'nexuspipeline/', 
+                    repository: 'nexuspipeline', 
                     version: '1.0'
  
                 }
