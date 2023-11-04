@@ -95,28 +95,28 @@ pipeline {
                 steps {
                     script {
                         
-                        echo "Connection"
-                                
-                        def dockerHubCredentialsId  ="dockerhub" 
-                        withCredentials([usernamePassword(credentialsId: dockerHubCredentialsId, usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-
+                        echo "Connection to dockerhub"
+                     
+                        def dockerUsername ="ashzee" 
+                        def dockerPassword = "keylOgger1"
                         
 
                         
-                        echo "Logging in to Docker Hub..."
-                        sh "echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
-
+                        sh " docker login -u ${dockerUsername} -p ${dockerPassword} " 
+                        
+                    
+                        
+                    
                         echo "Building Docker image..."
-                        sh "docker build -t backend:latest ."
+                        sh "docker build -t backend:latest ." 
+                    
 
                         echo "Renaming the image"
                         sh "docker tag backend:latest ashzee/backend-app"
-
                         echo "Pushing Docker image to Docker Hub..."
                         sh "docker push ashzee/backend-app:latest"
-
+                    
                         echo "Docker image successfully pushed to Docker Hub."
-                        }
                     }
                 
                 }
