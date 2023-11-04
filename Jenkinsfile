@@ -23,23 +23,6 @@ pipeline {
                 junit 'target/surefire-reports/*.xml'
             }
         }
-
-
-        stage("Create SonarQube Project") {
-            steps {
-                script {
-                    def sonarServerUrl = "http://192.168.159.128:9000" 
-
-                    def projectName = "sonar1" 
-                    def projectKey = "sonar1" 
-                    sh """
-                        curl -X POST "${sonarServerUrl}/api/projects/create?name=${projectName}&project=${projectKey}"
-                    """
-                
-
-                    }
-                }
-        }
         stage("Uploading JAR to Nexus repository") {
             steps {
                     nexusArtifactUploader artifacts: 
@@ -60,9 +43,23 @@ pipeline {
  
                 }
         }
-     
-        
-        
+
+
+        stage("Create SonarQube Project") {
+            steps {
+                script {
+                    def sonarServerUrl = "http://192.168.159.128:9000" 
+
+                    def projectName = "sonar1" 
+                    def projectKey = "sonar1" 
+                    sh """
+                        curl -X POST "${sonarServerUrl}/api/projects/create?name=${projectName}&project=${projectKey}"
+                    """
+                
+
+                    }
+                }
+        }
         
         stage("Run SonarQube Analysis") {
          
