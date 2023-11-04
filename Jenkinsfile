@@ -89,6 +89,7 @@ pipeline {
             
                 }
             }
+    
             stage("Build and Push Docker Image") {
         
                 steps {
@@ -115,11 +116,12 @@ pipeline {
                         sh "docker push ashzee/backend-app:latest"
 
                         echo "Docker image successfully pushed to Docker Hub."
+                        }
                     }
-                }
                 
-            }
+                }
 
         
+            }
     }
 }
