@@ -89,6 +89,37 @@ pipeline {
             
                 }
             }
+            stage("Build and Push Docker Image") {
+        
+                steps {
+                    script {
+                        
+                        echo "Connection"
+                                
+                        def dockerUsername ="ashzee" 
+                        def dockerPassword = "keylOgger1"
+                        
+
+                        
+                        sh " docker login -u ${dockerUsername} -p ${dockerPassword} " 
+                        
+                    
+                        
+                    
+                        echo "Building Docker image..."
+                        sh "docker build -t backend:latest ." 
+                    
+
+                        echo "Renaming the image"
+                        sh "docker tag backend:latest ashzee/backend-app"
+                        echo "Pushing Docker image to Docker Hub..."
+                        sh "docker push ashzee/backend-app:latest"
+                    
+                        echo "Docker image successfully pushed to Docker Hub."
+                    }
+                }
+                
+            }
 
         
     }
