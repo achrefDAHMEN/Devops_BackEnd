@@ -3,7 +3,7 @@ pipeline {
 
     stages {
 
-        stage('git') {
+        stage('git BackEnd') {
             steps {
                 script{
                      checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/achrefDAHMEN/Devops_BackEnd']]])
@@ -95,7 +95,7 @@ pipeline {
 
         */
     
-            stage("Build and Push Docker Image") {
+            stage("Build and Push Backend Docker Image") {
         
                 steps {
                     script {
@@ -127,6 +127,53 @@ pipeline {
                 }
 
         
+            }
+            stage("git FrontEnd"){
+                steps{
+                    script{
+                        checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url:"https://github.com/achrefDAHMEN/Devops_FrontEnd"]]])
+                    }
+                }
+         
+           
+         
+     }
+     
+    
+            stage("Build and Push FrontEnd Docker Image") {
+                    
+                    
+                        steps {
+                            script {
+            
+                        echo "Connection to dockerhub"
+                     
+                        def dockerUsername ="ashzee" 
+                        def dockerPassword = "keylOgger1"
+                        
+
+                        
+                        sh " docker login -u ${dockerUsername} -p ${dockerPassword} " 
+                        
+                    
+                        
+                    
+                        echo "Building Docker image..."
+                        sh "docker build --no-cache -t frontend:latest ." 
+                    
+
+                        echo "renommer l'image"
+                        sh "docker tag frontend:latest ashzee/frontend-app"
+                        echo "Pushing Docker image to Docker Hub..."
+                        sh "docker push ashzee/frontend-app:latest"
+                    
+                        echo "Docker image successfully pushed to Docker Hub."
+                            }
+                        }
+                            
+                            
+                        
+                            
             }
     }
 }
