@@ -23,29 +23,7 @@ pipeline {
                 junit 'target/surefire-reports/*.xml'
             }
         }
-        /*
-        stage("Uploading JAR to Nexus repository") {
-            steps {
-                    nexusArtifactUploader artifacts: 
-                    [
-                        [artifactId: 'DevOps_Project', 
-                        classifier: '', 
-                        file: 'target/DevOps_Project-1.0.jar', 
-                        type: 'jar'
-                        ]
-                    ], 
-                    credentialsId: 'nexus3', 
-                    groupId: 'tn.esprit', 
-                    nexusUrl: '192.168.159.128:8081', 
-                    nexusVersion: 'nexus3', 
-                    protocol: 'http', 
-                    repository: 'nexuspipeline', 
-                    version: '1.0'
- 
-                }
-        }
-
-        */
+       
         
 
         stage("Create SonarQube Project") {
@@ -92,6 +70,30 @@ pipeline {
             
                 }
             }
+
+             /*
+        stage("Uploading JAR to Nexus repository") {
+            steps {
+                    nexusArtifactUploader artifacts: 
+                    [
+                        [artifactId: 'DevOps_Project', 
+                        classifier: '', 
+                        file: 'target/DevOps_Project-1.0.jar', 
+                        type: 'jar'
+                        ]
+                    ], 
+                    credentialsId: 'nexus3', 
+                    groupId: 'tn.esprit', 
+                    nexusUrl: '192.168.159.128:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: 'nexuspipeline', 
+                    version: '1.0'
+ 
+                }
+        }
+
+        */
     
             stage("Build and Push Docker Image") {
         
