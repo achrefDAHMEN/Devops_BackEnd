@@ -29,7 +29,7 @@ pipeline {
         stage("Create SonarQube Project") {
             steps {
                 script {
-                    def sonarServerUrl = "http://192.168.159.128:9000" 
+                    def sonarServerUrl = "http://192.168.159.130:9000" 
 
                     def projectName = "sonar1" 
                     def projectKey = "sonar1" 
@@ -137,7 +137,7 @@ pipeline {
          
            
          
-     }
+            }
      
     
             stage("Build and Push FrontEnd Docker Image") {
@@ -162,7 +162,7 @@ pipeline {
                         sh "docker build --no-cache -t frontend:latest ." 
                     
 
-                        echo "renommer l'image"
+                        echo "Renaming the docker image"
                         sh "docker tag frontend:latest ashzee/frontend-app"
                         echo "Pushing Docker image to Docker Hub..."
                         sh "docker push ashzee/frontend-app:latest"
