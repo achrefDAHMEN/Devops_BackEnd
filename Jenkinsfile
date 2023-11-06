@@ -12,12 +12,12 @@ pipeline {
         }
     
         
-	    stage('Build') {
+	    stage('Build Back') {
             steps {
                 sh 'mvn clean package'
             }
         }
-        stage('Test') {
+        stage('Test Back') {
             steps {
                 sh 'mvn test'
                 junit 'target/surefire-reports/*.xml'
@@ -137,6 +137,14 @@ pipeline {
          
            
          
+            }
+            stage('Build Frontend') {
+                
+                steps {
+
+                        sh 'npm install'  
+                        sh 'npm run build' 
+                }
             }
      
     
