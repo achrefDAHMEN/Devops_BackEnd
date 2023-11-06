@@ -52,7 +52,7 @@ pipeline {
                             def sonarUsername = "admin"
                             def sonarPassword = "admin123"
 
-                            withCredentials([usernamePassword(credentialsId: 'sonar', usernameVariable: 'sonarUsername', passwordVariable: 'sonarPassword')]) {
+                            withCredentials([usernamePassword(credentialsId: 'sonarqube', usernameVariable: 'sonarUsername', passwordVariable: 'sonarPassword')]) {
                                 
                                 sh """
                                 set +x
