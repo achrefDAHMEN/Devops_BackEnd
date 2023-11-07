@@ -14,10 +14,10 @@ pipeline {
         
 	    stage('Build Back') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean package -DskipTests'
             }
         }
-        stage('Test Back') {
+        stage('Test Back JUnit') {
             steps {
                 sh 'mvn test'
                 junit 'target/surefire-reports/*.xml'
@@ -84,7 +84,7 @@ pipeline {
                     ], 
                     credentialsId: 'nexus3', 
                     groupId: 'tn.esprit', 
-                    nexusUrl: '192.168.159.128:8081', 
+                    nexusUrl: '192.168.23.128:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
                     repository: 'nexuspipeline', 
